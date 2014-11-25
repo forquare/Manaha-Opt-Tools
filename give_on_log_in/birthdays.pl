@@ -11,7 +11,7 @@ my $date = strftime "%m/%d", localtime;
 my $msm="/usr/local/bin/msm";
 my $server = "manaha";
 
-my $lock = "/home/manaha-minecrafter/opt/give_on_log_in/lock";
+my $lock = "/home/manaha-minecrafter/var/birthday_lock";
 my $lock_prefix = "birthday_";
 
 my $player = $ARGV[0];

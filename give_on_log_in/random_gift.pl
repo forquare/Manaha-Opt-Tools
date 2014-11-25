@@ -10,9 +10,6 @@ my $date = strftime "%m/%d", localtime;
 my $msm="/usr/local/bin/msm";
 my $server = "manaha";
 
-my $lock = "/home/manaha-minecrafter/opt/give_on_log_in/lock";
-my $lock_prefix = "random_gift_";
-
 my $random_item = int(rand(432));
 
 my $player = $ARGV[0];
