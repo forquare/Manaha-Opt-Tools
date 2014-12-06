@@ -54,7 +54,7 @@ while(<$LOGFILE>){
 	}
 
 	# PLEASE STOP SWEARING
-	if($line =~ /fuck/i || $line =~ /shit/i){
+	if($line =~ /fuck/i || $line =~ /shit/i || $line =~ /f\*\*\*/i){
 		`$msm $server say "No swearing please..."`;
 	}
 	
