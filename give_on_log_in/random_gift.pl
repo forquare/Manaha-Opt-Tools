@@ -4,11 +4,11 @@ use 5.010;
 use warnings;
 use strict;
 use POSIX qw(strftime);
+use File::Slurp;
 
 my $date = strftime "%m/%d", localtime;
 
-my $msm="/usr/local/bin/msm";
-my $server = "manaha";
+my %VARS = read_file( "/home/manaha-minecrafter/configs/common_variables.conf" ) =~ /^(.+)=(.*)$/mg ;
 
 my $random_item = int(rand(432));
 
@@ -51,13 +51,13 @@ my %DECODE = (
 );
 
 if(exists $ITEMS{$random_item}){
-	`$msm $server cmd "tell $player Congratulations!  You have just won"`;
-	`$msm $server cmd "tell $player $ITEMS{$random_item}"`;
-	`$msm $server cmd "give $player $DECODE{$random_item}"`;
+	`$VARS{MSM} $VARS{SERVER} cmd "tell $player Congratulations!  You have just won"`;
+	`$VARS{MSM} $VARS{SERVER} cmd "tell $player $ITEMS{$random_item}"`;
+	`$VARS{MSM} $VARS{SERVER} cmd "give $player $DECODE{$random_item}"`;
 }else{
 	unless($random_item % 12){
-		`$msm $server cmd "tell $player You won the booby prize!"`;
-		`$msm $server cmd "tell $player have some rotten flesh!"`;
-		`$msm $server cmd "give $player rotten_flesh"`;
+		`$VARS{MSM} $VARS{SERVER} cmd "tell $player You won the booby prize!"`;
+		`$VARS{MSM} $VARS{SERVER} cmd "tell $player have some rotten flesh!"`;
+		`$VARS{MSM} $VARS{SERVER} cmd "give $player rotten_flesh"`;
 	}	
 }
