@@ -7,17 +7,13 @@ use DateTime;
 use File::Slurp;
 use POSIX qw/ceil/;
 
-my $log="/home/manaha-minecrafter/opt/activity/activity.txt";
-my $players="/home/manaha-minecrafter/opt/players.txt";
-my $OUTPUT="/home/manaha-minecrafter/public_html/activity.txt";
+my %VARS = read_file( "/home/manaha-minecrafter/configs/common_variables.conf" ) =~ /^(.+)=(.*)$/mg ;
 
-#my $perl="/usr/bin/perl";
-
-my @PLAYER_FILE = read_file($players);
+my @PLAYER_FILE = read_file($VARS{PLAYERS});
 chomp(@PLAYER_FILE);
 my %PLAYERS = map { $_ => 0 } @PLAYER_FILE;
 
-my @LOG = read_file($log);
+my @LOG = read_file($VARS{ACTIVITY_LOG});
 
 foreach my $player (keys %PLAYERS){
 	my @activity = grep(/$player/, @LOG);
@@ -76,4 +72,4 @@ sub hashValueDescendingNum {
 foreach my $player (sort hashValueDescendingNum (keys(%PLAYERS))){
 	$output = "$output $player=$PLAYERS{$player}\n";
 }
-write_file($OUTPUT, $output);
+write_file($VARS{ACTIVITY_OUTPUT}, $output);
