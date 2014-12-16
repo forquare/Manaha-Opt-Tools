@@ -1,10 +1,12 @@
 #!/bin/bash
 
-DATE=`date +"%Y-%m-%d"`
-LOGS="/opt/msm/servers/manaha/logs/latest.log"
-CHECK_FILE=/home/manaha-minecrafter/.last_crash
+# Load variables
+source /home/manaha-minecrafter/configs/common_variables.conf
 
-LAST_CRASH=`egrep -a "Server thread/ERROR|Server Watchdog/ERROR" $LOGS | grep crash | sort -n | tac | head -n 1`
+DATE=`date +"%Y-%m-%d"`
+CHECK_FILE=$VAR_DIR/.last_crash
+
+LAST_CRASH=`egrep -a "Server thread/ERROR|Server Watchdog/ERROR" $SERVER_LOGS | grep crash | sort -n | tac | head -n 1`
 if [[ $LAST_CRASH == "" ]]; then
 	exit 0;
 fi
@@ -20,7 +22,7 @@ else
 	echo "Server crashed"
 	echo $LAST_CRASH > $CHECK_FILE
 	echo "Restarting server"
-	/usr/local/bin/msm manaha stop now
+	$MSM $SERVER stop now
 	SCREEN=ps -ef | grep SCREEN | awk '{print $2}'
 	while [[ $SCREEN ]]; do
 		for EACH in $SCREEN; do
