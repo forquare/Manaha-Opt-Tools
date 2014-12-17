@@ -1,12 +1,13 @@
 #!/bin/bash
 
-LOGS_HOME=/home/manaha-minecrafter/maintenance_logs
+# Load variables
+source /home/manaha-minecrafter/configs/common_variables.conf
 
 AUTO_REBOOT="auto_reboot"
 NIGHTLY_MAINT="nightly_maintenance"
 KEEP_ALIVE="keep_alive"
 
-cd $LOGS_HOME
+cd $MAINTENANCE_LOGS_DIR
 
 IFS="
 "
@@ -20,7 +21,7 @@ for EACH in `ls | grep $AUTO_REBOOT`; do
 done
 
 # Remove logs files older than 30 days
-find $LOGS_HOME -mtime +30 -print0 | xargs -0 rm
-find ./ -iname "$KEEP_ALIVE*" -mmin +360 -print0 | xargs -0 rm
+find $MAINTENANCE_LOGS_DIR -mtime +30 -print0 | xargs -0 rm
+find $MAINTENANCE_LOGS_DIR -iname "$KEEP_ALIVE*" -mmin +360 -print0 | xargs -0 rm
 
-gunzip /opt/msm/servers/manaha/logs/*.gz
+gunzip $SERVER_LOGS_DIR/*.gz
