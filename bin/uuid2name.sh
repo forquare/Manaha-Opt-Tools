@@ -1,6 +1,9 @@
 #!/bin/bash
 
-WHITELIST=/opt/msm/servers/manaha/whitelist.json
+# Load variables
+source /home/manaha-minecrafter/configs/common_variables.conf
+
+WHITELIST=$SERVER_DIR/whitelist.json
 UUID=$1
 
 NAME=`grep -A 1 $UUID $WHITELIST`
