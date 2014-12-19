@@ -3,11 +3,11 @@
 IFS="
 "
 
-SERVER=/opt/msm/servers/manaha
-SERVER_LOGS=$SERVER/logs
+# Load variables
+source /home/manaha-minecrafter/configs/common_variables.conf
 
-PLAYERS=`ls $SERVER/world/players | sed 's/.dat//g'`
-LOGS=`ls $SERVER_LOGS/*.gz`
+PLAYERS=`ls $SERVER_DIR/world/playerdata | sed 's/.dat//g'`
+LOGS=`ls $SERVER_LOGS_DIR/*`
 
 ONLINE=""
 OFFLINE=""
@@ -18,8 +18,10 @@ TEMP=/tmp/$$.players_activity
 GREP_STRING=""
 
 for PLAYER in $PLAYERS; do
-	ON=`cat $SERVER/logs/latest.log | grep -a $PLAYER | grep -a "logged in" | wc -l`
-	OFF=`cat $SERVER/logs/latest.log | grep -a $PLAYER | grep -a "lost connection" | wc -l`
+	PLAYER=`$BIN_DIR/uuid2name.sh $PLAYER`
+
+	ON=`cat $SERVER_DIR/logs/latest.log | grep -a $PLAYER | grep -a "logged in" | wc -l`
+	OFF=`cat $SERVER_DIR/logs/latest.log | grep -a $PLAYER | grep -a "lost connection" | wc -l`
 	if [[ -f $TEMP ]]; then
 		rm $TEMP
 		touch $TEMP
@@ -36,15 +38,15 @@ done
 GREP_STRING=`echo $GREP_STRING | sed 's/^|//'`
 
 for LOG in $LOGS; do
-	DATE=`echo $LOG | sed 's/\(.*\)\/\([^/]*\)/\2/' | sed 's/\(....-..-..\).*log.gz/\1/g'`
-	for EACH in `zcat $LOG | grep -aE $GREP_STRING | grep -a "lost connection"`; do
+	DATE=`echo $LOG | sed 's/\(.*\)\/\([^/]*\)/\2/' | sed 's/\(....-..-..\).*log/\1/g'`
+	for EACH in `cat $LOG | grep -aE $GREP_STRING | grep -a "lost connection"`; do
 		echo "$DATE $EACH" >> $TEMP
 	done
 done
 
 DATE=`date "+%Y-%m-%d"`
-if [[ `grep -aE  $GREP_STRING $SERVER/logs/latest.log` ]]; then
-	for EACH in `cat $SERVER/logs/latest.log | grep -aE $GREP_STRING | grep -a 'lost connection'`; do
+if [[ `grep -aE  $GREP_STRING $SERVER_DIR/logs/latest.log` ]]; then
+	for EACH in `cat $SERVER_DIR/logs/latest.log | grep -aE $GREP_STRING | grep -a 'lost connection'`; do
 		echo "$DATE $EACH" >> $TEMP
 	done
 fi
