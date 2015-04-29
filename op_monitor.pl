@@ -3,34 +3,34 @@
 use 5.010;
 use warnings;
 use strict;
+use File::Slurp;
 
-my $msm="/usr/local/bin/msm";
-my $server = "manaha";
+my %VARS = read_file( "/home/manaha-minecrafter/configs/common_variables.conf" ) =~ /^(.+)=(.*)$/mg ;
 
 my $operator = $ARGV[0];
 my $MAX_TIME = 600; #10 minutes * 60 seconds
 my $REMAINING_TIME = 10;
 my $WARN_TIME = $MAX_TIME - $REMAINING_TIME; #Warn $REMAINING_TIME seconds before $MAX_TIME
 
-my $config="/home/manaha-minecrafter/configs/operators.txt";
+my $VARS{OPERATOR_CONFIG}="/home/manaha-minecrafter/configs/operators.txt";
 
-open(my $CONFIGFILE, $config) or die "Cannot open config file";
+open(my $CONFIGFILE, $VARS{OPERATOR_CONFIG}) or die "Cannot open config file";
 my @OPERATORS = <$CONFIGFILE>;
 
 #Make operator
 if(grep /$operator/, @OPERATORS){
-	`$msm $server op add $operator`;
-	`$msm $server say ***MAKING $operator AN OPERATOR***`;
+	`$VARS{MSM} $VARS{SERVER} op add $operator`;
+	`$VARS{MSM} $VARS{SERVER} say ***MAKING $operator AN OPERATOR***`;
 }else{
-	`$msm $server say Sorry, $operator, you do not have permission to become an operator!`;
+	`$VARS{MSM} $VARS{SERVER} say Sorry, $operator, you do not have permission to become an operator!`;
 	exit 1;
 }
 
 sleep $WARN_TIME;
-`$msm $server cmd "/tell $operator 10 SECONDS LEFT OF OP POWERS!"`;
-`$msm $server cmd "/tell $operator 10 WILL REMOVE CREATIVE MODE TOO!!"`;
+`$VARS{MSM} $VARS{SERVER} cmd "/tell $operator 10 SECONDS LEFT OF OP POWERS!"`;
+`$VARS{MSM} $VARS{SERVER} cmd "/tell $operator 10 WILL REMOVE CREATIVE MODE TOO!!"`;
 
 sleep $REMAINING_TIME;
-`$msm $server say ***REMOVING OPERATOR FUNCTIONS FROM $operator***`;
-`$msm $server op remove $operator`;
-`$msm $server cmd "/gamemode survival $operator"`;
+`$VARS{MSM} $VARS{SERVER} say ***REMOVING OPERATOR FUNCTIONS FROM $operator***`;
+`$VARS{MSM} $VARS{SERVER} op remove $operator`;
+`$VARS{MSM} $VARS{SERVER} cmd "/gamemode survival $operator"`;
