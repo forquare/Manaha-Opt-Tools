@@ -20,7 +20,7 @@ sleep 5;
 `$VARS{MSM} $VARS{SERVER} cmd "tell $player $VARS{WELCOME_MESSAGE}"`;
 
 system("$perl $giving_dir/birthdays.pl $player");
-system("$perl $giving_dir/christmas.pl $player");
+#system("$perl $giving_dir/christmas.pl $player");
 system("$perl $giving_dir/random_gift.pl $player");
 system('cat /opt/msm/servers/manaha/whitelist.json | grep name| sed \'s/.*name\": \"\(.*\)\"/\1/g\' > /home/manaha-minecrafter/opt/players.txt');
 
