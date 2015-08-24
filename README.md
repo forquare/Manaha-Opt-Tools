@@ -36,6 +36,7 @@ The scripts currently load in a number of varibales from a file.  If you are dep
     WELCOME_MESSAGE=
     
 Below is an example:
+
     MSM=/usr/local/bin/msm
     SERVER=manaha
     BIN_DIR=/home/manaha-minecrafter/opt/bin
