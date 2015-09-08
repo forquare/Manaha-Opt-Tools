@@ -14,7 +14,7 @@ IFS="
 
 # Remove logs that didn't have a crash
 for EACH in `ls | grep $AUTO_REBOOT`; do
-	log=`cat $EACH`
+	log=`<$EACH`
 	if [ "$log" == "No crash detected" ]; then
 		rm $EACH
 	fi

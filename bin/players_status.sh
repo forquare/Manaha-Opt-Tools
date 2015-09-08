@@ -20,8 +20,8 @@ GREP_STRING=""
 for PLAYER in $PLAYERS; do
 	PLAYER=`$BIN_DIR/uuid2name.sh $PLAYER`
 
-	ON=`cat $SERVER_DIR/logs/latest.log | grep -a $PLAYER | grep -a "logged in" | wc -l`
-	OFF=`cat $SERVER_DIR/logs/latest.log | grep -a $PLAYER | grep -a "lost connection" | wc -l`
+	ON=`<$SERVER_DIR/logs/latest.log | grep -a $PLAYER | grep -a "logged in" | wc -l`
+	OFF=`<$SERVER_DIR/logs/latest.log | grep -a $PLAYER | grep -a "lost connection" | wc -l`
 	if [[ -f $TEMP ]]; then
 		rm $TEMP
 		touch $TEMP
@@ -39,21 +39,21 @@ GREP_STRING=`echo $GREP_STRING | sed 's/^|//'`
 
 for LOG in $LOGS; do
 	DATE=`echo $LOG | sed 's/\(.*\)\/\([^/]*\)/\2/' | sed 's/\(....-..-..\).*log/\1/g'`
-	for EACH in `cat $LOG | grep -aE $GREP_STRING | grep -a "lost connection"`; do
+	for EACH in `<$LOG | grep -aE $GREP_STRING | grep -a "lost connection"`; do
 		echo "$DATE $EACH" >> $TEMP
 	done
 done
 
 DATE=`date "+%Y-%m-%d"`
 if [[ `grep -aE  $GREP_STRING $SERVER_DIR/logs/latest.log` ]]; then
-	for EACH in `cat $SERVER_DIR/logs/latest.log | grep -aE $GREP_STRING | grep -a 'lost connection'`; do
+	for EACH in `<$SERVER_DIR/logs/latest.log | grep -aE $GREP_STRING | grep -a 'lost connection'`; do
 		echo "$DATE $EACH" >> $TEMP
 	done
 fi
 
 IFS=" "
 for OFFLINE_PLAYER in `echo $GREP_STRING | sed 's/|/ /g'`; do
-		OFFLINE="$OFFLINE${NL}`cat $TEMP | grep $OFFLINE_PLAYER | sort | tail -1 | sed 's/\[//g' | sed 's/\]//g' | awk '{print $1, $2}'` $OFFLINE_PLAYER"
+		OFFLINE="$OFFLINE${NL}`< $TEMP | grep $OFFLINE_PLAYER | sort | tail -1 | sed 's/\[//g' | sed 's/\]//g' | awk '{print $1, $2}'` $OFFLINE_PLAYER"
 		OFFLINE=`echo "$OFFLINE" | sort -r`
 done
 IFS="

@@ -22,7 +22,7 @@ sleep 5;
 system("$perl $giving_dir/birthdays.pl $player");
 #system("$perl $giving_dir/christmas.pl $player");
 system("$perl $giving_dir/random_gift.pl $player");
-system('cat /opt/msm/servers/manaha/whitelist.json | grep name| sed \'s/.*name\": \"\(.*\)\"/\1/g\' > /home/manaha-minecrafter/opt/players.txt');
+system('</opt/msm/servers/manaha/whitelist.json | grep name| sed \'s/.*name\": \"\(.*\)\"/\1/g\' > /home/manaha-minecrafter/opt/players.txt');
 
 my %UNDERAGE = read_file( "/home/manaha-minecrafter/configs/under16.txt" ) =~ /^(.+)=(.*)$/mg ;
 
