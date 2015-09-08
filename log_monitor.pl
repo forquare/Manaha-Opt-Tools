@@ -15,6 +15,7 @@ foreach my $instance(@instances){
 }
 
 # DEAMONISE OURSELF
+$SIG{CHLD} = 'IGNORE';
 my $pid = fork();
 if($pid != 0){
 	exit;
@@ -46,13 +47,13 @@ while(<$LOGFILE>){
 
 	# PLEASE STOP SWEARING
 	if($line =~ /fuck/i || $line =~ /shit/i || $line =~ /f\*\*\*/i){
-		`$VARS{MSM} $VARS{OPERATOR_CONFIG} say "No swearing please..."`;
+		`$VARS{MSM} $VARS{SERVER} say "No swearing please..."`;
 	}
 	
 	# TELEPORT TO BANK
 	if($line =~ /stuck in the vault!/i){
 		sleep 1;
-		`$VARS{MSM} $VARS{OPERATOR_CONFIG} say "Vault escaping was being misused. It is no longer available."`;
+		`$VARS{MSM} $VARS{SERVER} say "Vault escaping was being misused. It is no longer available."`;
 	#	my $vault_lock_file = "$vault_lock/$PLAYER";
 	#	`touch $vault_lock_file`;
 	#	sleep 1;
@@ -62,23 +63,23 @@ while(<$LOGFILE>){
 	#	say "2";
 	#	if($player_number){
 	#		if($player_number > 4){
-	#			`$VARS{MSM} $VARS{OPERATOR_CONFIG} say "$PLAYER I did warn you"`;
-        #                       `$VARS{MSM} $VARS{OPERATOR_CONFIG} cmd "tp $PLAYER 2584 200 -3"`;
+	#			`$VARS{MSM} $VARS{SERVER} say "$PLAYER I did warn you"`;
+        #                       `$VARS{MSM} $VARS{SERVER} cmd "tp $PLAYER 2584 200 -3"`;
 	#		}elsif($player_number > 1){
-	#			`$VARS{MSM} $VARS{OPERATOR_CONFIG} say "Sorry $PLAYER you cannot abuse it"`;
+	#			`$VARS{MSM} $VARS{SERVER} say "Sorry $PLAYER you cannot abuse it"`;
 	#			$player_number++;
         #                       write_file($vault_lock_file, $player_number);
 	#		}else{
 	#			$player_number++;
 	#			write_file($vault_lock_file, $player_number);
 	#			my $tp_command = "tp $PLAYER 2622 2000 -1793";
-	#			`$VARS{MSM} $VARS{OPERATOR_CONFIG} cmd $tp_command`;
+	#			`$VARS{MSM} $VARS{SERVER} cmd $tp_command`;
 	#		}
 	#	}else{
 	#		$player_number = 1;
 	#		write_file($vault_lock_file, $player_number);
 	#		my $tp_command = "tp $PLAYER 134 73 110";
-	#		`$VARS{MSM} $VARS{OPERATOR_CONFIG} cmd $tp_command`;
+	#		`$VARS{MSM} $VARS{SERVER} cmd $tp_command`;
 	#	}
 	}
 

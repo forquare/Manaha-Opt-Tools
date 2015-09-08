@@ -12,8 +12,6 @@ my $MAX_TIME = 600; #10 minutes * 60 seconds
 my $REMAINING_TIME = 10;
 my $WARN_TIME = $MAX_TIME - $REMAINING_TIME; #Warn $REMAINING_TIME seconds before $MAX_TIME
 
-my $VARS{OPERATOR_CONFIG}="/home/manaha-minecrafter/configs/operators.txt";
-
 open(my $CONFIGFILE, $VARS{OPERATOR_CONFIG}) or die "Cannot open config file";
 my @OPERATORS = <$CONFIGFILE>;
 
