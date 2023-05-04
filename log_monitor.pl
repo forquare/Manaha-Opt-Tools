@@ -132,7 +132,7 @@ while(<$LOGFILE>){
 
                 write_file($VARS{PLAYERS_HTML}, @players);
 		system("echo \"`date '+%Y-%m-%d %H:%M:%S'` $PLAYER left\" >> $VARS{ACTIVITY_LOG}");
-		system("/home/manaha-minecrafter/opt/activity/calculate_activity.pl");
+		system("$VARS{PERL} $VARS{OPT_DIR}/activity/calculate_activity.pl");
         }
 	# END PLAYER ACCOUNTING
 

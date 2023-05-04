@@ -12,8 +12,8 @@ my $lock_prefix = "birthday_";
 
 my $player = $ARGV[0];
 
-my %PLAYERS = read_file( "/home/manaha-minecrafter/configs/birthdays.txt" ) =~ /^(.+)=(.*)$/mg ;
 my %VARS = read_file( "/home/manaha-minecrafter/configs/common_variables.conf" ) =~ /^(.+)=(.*)$/mg ;
+my %PLAYERS = read_file($VARS{BIRTHDAY_FILE}) =~ /^(.+)=(.*)$/mg ;
 
 if($date eq $PLAYERS{$player}){
 	exit 0 if -e "$VARS{LOCK_DIR}/$lock_prefix$player";

@@ -3,9 +3,10 @@
 # Load variables
 source /home/manaha-minecrafter/configs/common_variables.conf
 
-$MSM $SERVER say "The server is going down for a restart. It will be back up after 1 minute.  10 second countdown"
+$MSM $SERVER say "The server is going down for a restart. It will be back up after a few minutes.  10 second countdown"
 sleep 5
-$MSM $SERVER say "The server is going down for a restart in 10 seconds."
+$MSM $SERVER say "The server is going down for a restart in 5 seconds."
+sleep 5
 
 echo "Restarting server"
 $MSM $SERVER say "The server is going down for a restart NOW. Back up soon"
@@ -33,5 +34,5 @@ sleep 30
 
 $MSM $SERVER start	
 
-echo "Generating map"
-$BIN_DIR/map_gen.sh
+#echo "Generating map"
+#$BIN_DIR/map_gen.sh

@@ -15,7 +15,7 @@ use Geometry::Primitive::Rectangle;
 use Graphics::Color::RGB;
 use File::Slurp;
 
-my $INPUT="/home/manaha-minecrafter/public_html/activity.txt";
+my $INPUT="/home/manaha-minecrafter/var/activity.txt";
 my %DATA = read_file( $INPUT ) =~ /^(.+)=(.*)$/mg ;
 
 my $cc = Chart::Clicker->new(width => 600, height => 500);
@@ -42,4 +42,4 @@ $defctx->domain_axis->hidden(1);
 $defctx->range_axis->hidden(1);
 $cc->plot->grid->visible(0);
 
-$cc->write_output('../../public_html/pie-gradient.png');
+$cc->write_output('/var/www/html/pie-gradient.png');

@@ -22,9 +22,9 @@ sleep 5;
 system("$perl $giving_dir/birthdays.pl $player");
 #system("$perl $giving_dir/christmas.pl $player");
 system("$perl $giving_dir/random_gift.pl $player");
-system('</opt/msm/servers/manaha/whitelist.json | grep name| sed \'s/.*name\": \"\(.*\)\"/\1/g\' > /home/manaha-minecrafter/opt/players.txt');
+system("jq -r '.[] | .name' $VARS{SERVER_DIR}/whitelist.json > $VARS{PLAYERS}");
 
-my %UNDERAGE = read_file( "/home/manaha-minecrafter/configs/under16.txt" ) =~ /^(.+)=(.*)$/mg ;
+my %UNDERAGE = read_file( "$VARS{CONFIG_DIR}/under16.txt" ) =~ /^(.+)=(.*)$/mg ;
 
 if(exists $UNDERAGE{$player}){
 	`$VARS{MSM} $VARS{SERVER} cmd "tell $player URGENT: PLEASE READ mc.manaha.co.uk/under16.html"`;
