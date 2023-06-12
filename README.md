@@ -1,3 +1,11 @@
+# THIS REPO IS DEPLRECATED
+
+From June 2023, Manaha now runs not with a series of shell and Perl scripts, but with a monolithic Go application: Manaha Minder.
+
+You can find Manaha Minder over in its repo: https://github.com/forquare/Manaha-Minder
+
+---
+
 # Manaha-Opt-Tools
 
 
